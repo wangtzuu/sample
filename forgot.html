@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password - Library Management System</title>
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #3a0606; /* Dark red background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px 0;
+}
+
+.container {
+    display: flex;
+    width: 800px;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Mobile Responsiveness Adjustments */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 0;
+    }
+
+    .container {
+        flex-direction: column;
+        width: 100%;
+        max-width: 100%;
+        height: 100vh;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .form-container,
+    .logo-container {
+        flex: none;
+        width: 100%;
+        padding: 30px 20px;
+    }
+
+    .form-container {
+        order: 2;
+    }
+
+    .logo-container {
+        order: 1;
+        background-color: #8B0000;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logo {
+        width: 150px;
+        margin-bottom: 15px;
+    }
+
+    h1 {
+        font-size: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .description {
+        font-size: 14px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .home-btn {
+        position: relative;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        max-width: 250px;
+        margin: 0 auto 20px;
+        text-align: center;
+    }
+
+    input {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .btn {
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .code-input input {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+}
+
+/* Existing CSS remains the same */
+.form-container {
+    flex: 1;
+    padding: 40px;
+}
+
+.logo-container {
+    flex: 1;
+    background-color: #8B0000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    color: white;
+    text-align: center;
+}
+
+.logo {
+    width: 180px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 24px;
+}
+
+.description {
+    margin-bottom: 30px;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 500;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.btn {
+    background-color: #8B0000;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #6B0000;
+}
+
+.link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #8B0000;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.alert {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    display: none;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.home-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: white;
+    color: #8B0000;
+    padding: 8px 15px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Verification code section */
+.code-container {
+    display: none;
+}
+
+.code-input {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.code-input input {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 24px;
+}
+    </style>
+</head>
+<body>
+    <a href="home.html" class="home-btn">Home</a>
+    
+    <div class="container">
+        <div class="form-container">
+            <h1>Reset Password</h1>
+            
+            <!-- Email form -->
+            <div id="emailForm">
+                <div class="description">
+                    Enter your email address below. We'll send you a verification code to reset your password.
+                </div>
+                
+                <div id="emailAlert" class="alert"></div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                
+                <button id="sendCodeBtn" class="btn">Send Reset Code</button>
+                <a href="index.html" class="link">Back to Login</a>
+            </div>
+            
+            <!-- Verification code form -->
+            <div id="codeForm" class="code-container">
+                <div class="description">
+                    Please enter the 6-digit verification code sent to your email.
+                </div>
+                
+                <div id="codeAlert" class="alert"></div>
+                
+                <div class="form-group">
+                    <label>Verification Code *</label>
+                    <div class="code-input">
+                        <input type="text" maxlength="1" class="code-digit" required>
+                        <input type="text" maxlength="1" class="code-digit" required>
+                        <input type="text" maxlength="1" class="code-digit" required>
+                        <input type="text" maxlength="1" class="code-digit" required>
+                        <input type="text" maxlength="1" class="code-digit" required>
+                        <input type="text" maxlength="1" class="code-digit" required>
+                    </div>
+                </div>
+                
+                <button id="verifyCodeBtn" class="btn">Verify Code</button>
+                <button id="resendCodeBtn" class="btn" style="background-color: #666; margin-top: 10px;">Resend Code</button>
+            </div>
+            
+            <!-- New password form -->
+            <div id="passwordForm" class="code-container">
+                <div class="description">
+                    Enter your new password below.
+                </div>
+                
+                <div id="passwordAlert" class="alert"></div>
+                
+                <div class="form-group">
+                    <label for="newPassword">New Password *</label>
+                    <input type="password" id="newPassword" placeholder="Enter new password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password *</label>
+                    <input type="password" id="confirmPassword" placeholder="Confirm new password" required>
+                </div>
+                
+                <button id="resetPasswordBtn" class="btn">Reset Password</button>
+            </div>
+        </div>
+        
+        <div class="logo-container">
+            <img src="logo.png" alt="Rolando Samson National High School Logo" class="logo">
+            <h2>Library Management System</h2>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // Supabase configuration
+        const supabaseUrl = 'https://xvxzvzzrgbsfdialxntu.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh2eHp2enpyZ2JzZmRpYWx4bnR1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY2MDQ4ODEsImV4cCI6MjA2MjE4MDg4MX0.s_07EucARbv2GJKMo3HKatiodaqo9WNJO-k1vLkog5E';
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+        // EmailJS configuration
+        const SERVICE_ID = 'service_9oak1xi';
+        const TEMPLATE_ID = 'template_chomk4e';
+        const PUBLIC_KEY = 'wMuTdNHEn7869oFWK';  // Fixed public key
+
+        // DOM elements
+        const emailForm = document.getElementById('emailForm');
+        const codeForm = document.getElementById('codeForm');
+        const passwordForm = document.getElementById('passwordForm');
+        const emailInput = document.getElementById('email');
+        const sendCodeBtn = document.getElementById('sendCodeBtn');
+        const verifyCodeBtn = document.getElementById('verifyCodeBtn');
+        const resendCodeBtn = document.getElementById('resendCodeBtn');
+        const resetPasswordBtn = document.getElementById('resetPasswordBtn');
+        const codeDigits = document.querySelectorAll('.code-digit');
+        const newPassword = document.getElementById('newPassword');
+        const confirmPassword = document.getElementById('confirmPassword');
+
+        // Alerts
+        const emailAlert = document.getElementById('emailAlert');
+        const codeAlert = document.getElementById('codeAlert');
+        const passwordAlert = document.getElementById('passwordAlert');
+
+        let currentEmail = '';
+        let verificationCode = '';
+
+        // Generate random 6-digit code
+        function generateCode() {
+            return Math.floor(100000 + Math.random() * 900000).toString();
+        }
+
+        // Show alert message
+        function showAlert(element, message, type) {
+            element.textContent = message;
+            element.className = `alert alert-${type}`;
+            element.style.display = 'block';
+            
+            // Hide alert after 5 seconds
+            setTimeout(() => {
+                element.style.display = 'none';
+            }, 5000);
+        }
+
+        // Initialize EmailJS
+        document.addEventListener('DOMContentLoaded', function() {
+            emailjs.init(PUBLIC_KEY);  // Fixed: removed the object and just passing the string
+            
+            // Make sure all forms are properly hidden except the email form
+            emailForm.style.display = 'block';
+            codeForm.style.display = 'none';
+            passwordForm.style.display = 'none';
+        });
+
+        // Send verification code
+        sendCodeBtn.addEventListener('click', async () => {
+            const email = emailInput.value.trim();
+            
+            if (!email) {
+                showAlert(emailAlert, 'Please enter your email address', 'danger');
+                return;
+            }
+            
+            try {
+                // Check if email exists in the database
+                const { data, error } = await supabase
+                    .from('users')
+                    .select('email')
+                    .eq('email', email);
+                
+                if (error) {
+                    console.error('Error checking email:', error);
+                    showAlert(emailAlert, 'An error occurred while checking your email', 'danger');
+                    return;
+                }
+                
+                if (!data || data.length === 0) {
+                    showAlert(emailAlert, 'Email address not found in our records', 'danger');
+                    return;
+                }
+                
+                // Generate a verification code
+                verificationCode = generateCode();
+                
+                // Store the verification code in the database
+                const { error: updateError } = await supabase
+                    .from('users')
+                    .update({ code: verificationCode })
+                    .eq('email', email);
+                
+                if (updateError) {
+                    showAlert(emailAlert, 'Error sending verification code', 'danger');
+                    console.error('Error updating code:', updateError);
+                    return;
+                }
+                
+                // Create the template parameters object
+                const templateParams = {
+                    to_email: email,
+                    verification_code: verificationCode,
+                    to_name: email.split('@')[0],
+                    time: new Date(Date.now() + 15 * 60000).toLocaleTimeString() // 15 minutes from now
+                };
+                
+                console.log("Sending email with params:", templateParams); // Debug log
+                
+                // Send the verification code via email using EmailJS
+                emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)
+                    .then(function(response) {
+                        console.log('Email sent successfully:', response.status, response.text);
+                        showAlert(emailAlert, `Verification code sent to ${email}`, 'success');
+                        
+                        // Store current email and show code form
+                        currentEmail = email;
+                        emailForm.style.display = 'none';
+                        codeForm.style.display = 'block';
+                        
+                        // Focus on first digit input
+                        codeDigits[0].focus();
+                    })
+                    .catch(function(error) {
+                        console.error('EmailJS error:', error);
+                        showAlert(emailAlert, 'Failed to send verification code. Please try again.', 'danger');
+                    });
+                
+            } catch (err) {
+                showAlert(emailAlert, 'An unexpected error occurred', 'danger');
+                console.error('Error:', err);
+            }
+        });
+
+        // Handle code digit inputs
+        codeDigits.forEach((input, index) => {
+            // Move to next input when a digit is entered
+            input.addEventListener('input', () => {
+                if (input.value) {
+                    // Make sure only numbers are entered
+                    input.value = input.value.replace(/[^0-9]/g, '');
+                    
+                    if (index < codeDigits.length - 1) {
+                        codeDigits[index + 1].focus();
+                    }
+                }
+            });
+            
+            // Handle backspace
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !input.value && index > 0) {
+                    codeDigits[index - 1].focus();
+                }
+            });
+        });
+
+        // Verify code
+        verifyCodeBtn.addEventListener('click', async () => {
+            // Collect code from inputs
+            let enteredCode = '';
+            codeDigits.forEach(digit => {
+                enteredCode += digit.value;
+            });
+            
+            if (enteredCode.length !== 6) {
+                showAlert(codeAlert, 'Please enter all 6 digits', 'danger');
+                return;
+            }
+            
+            try {
+                // Verify the code in the database
+                const { data, error } = await supabase
+                    .from('users')
+                    .select('code')
+                    .eq('email', currentEmail);
+                
+                if (error) {
+                    showAlert(codeAlert, 'Error verifying code', 'danger');
+                    console.error('Error:', error);
+                    return;
+                }
+                
+                // Convert both codes to strings for comparison and log for debugging
+                const dbCode = data && data.length > 0 ? String(data[0].code) : null;
+                const inputCode = String(enteredCode);
+                
+                console.log('DB Code:', dbCode);
+                console.log('Input Code:', inputCode);
+                
+                if (!dbCode) {
+                    showAlert(codeAlert, 'Invalid verification code or expired', 'danger');
+                    return;
+                }
+                
+                // Compare the codes directly
+                if (dbCode === inputCode) {
+                    // Code is valid - Show password reset form
+                    showAlert(codeAlert, 'Verification successful!', 'success');
+                    
+                    // Show password reset form after a brief delay
+                    setTimeout(() => {
+                        codeForm.style.display = 'none';
+                        passwordForm.style.display = 'block';
+                    }, 1000);
+                } else {
+                    showAlert(codeAlert, 'Invalid verification code', 'danger');
+                }
+                
+            } catch (err) {
+                showAlert(codeAlert, 'An unexpected error occurred', 'danger');
+                console.error('Error:', err);
+            }
+        });
+
+        // Resend code
+        resendCodeBtn.addEventListener('click', async () => {
+            // Generate a new verification code
+            verificationCode = generateCode();
+            
+            try {
+                // Update the verification code in the database
+                const { error } = await supabase
+                    .from('users')
+                    .update({ code: verificationCode })
+                    .eq('email', currentEmail);
+                
+                if (error) {
+                    showAlert(codeAlert, 'Error resending verification code', 'danger');
+                    console.error('Error updating code:', error);
+                    return;
+                }
+                
+                // Create the template parameters object
+                const templateParams = {
+                    to_email: currentEmail,
+                    verification_code: verificationCode,
+                    to_name: currentEmail.split('@')[0],
+                    time: new Date(Date.now() + 15 * 60000).toLocaleTimeString() // 15 minutes from now
+                };
+                
+                console.log("Resending email with params:", templateParams); // Debug log
+                
+                // Send the verification code via email using EmailJS
+                emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)
+                    .then(function(response) {
+                        console.log('Email resent successfully:', response.status, response.text);
+                        showAlert(codeAlert, `Verification code resent to ${currentEmail}`, 'success');
+                    })
+                    .catch(function(error) {
+                        console.error('EmailJS error:', error);
+                        showAlert(codeAlert, 'Failed to resend verification code. Please try again.', 'danger');
+                    });
+                
+                // Clear code inputs
+                codeDigits.forEach(digit => {
+                    digit.value = '';
+                });
+                codeDigits[0].focus();
+                
+            } catch (err) {
+                showAlert(codeAlert, 'An unexpected error occurred', 'danger');
+                console.error('Error:', err);
+            }
+        });
+
+        // Reset password
+        resetPasswordBtn.addEventListener('click', async () => {
+            const password = newPassword.value;
+            const confirm = confirmPassword.value;
+            
+            if (!password || !confirm) {
+                showAlert(passwordAlert, 'Please enter both password fields', 'danger');
+                return;
+            }
+            
+            if (password !== confirm) {
+                showAlert(passwordAlert, 'Passwords do not match', 'danger');
+                return;
+            }
+            
+            // Add password strength check
+            if (password.length < 6) {
+                showAlert(passwordAlert, 'Password must be at least 6 characters long', 'danger');
+                return;
+            }
+            
+            try {
+                // Update password in the database
+                const { error } = await supabase
+                    .from('users')
+                    .update({ 
+                        password: password,
+                        code: null // Clear the verification code
+                    })
+                    .eq('email', currentEmail);
+                
+                if (error) {
+                    showAlert(passwordAlert, 'Error updating password', 'danger');
+                    console.error('Error:', error);
+                    return;
+                }
+                
+                showAlert(passwordAlert, 'Password reset successfully!', 'success');
+                
+                // Redirect to login page after 2 seconds
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+                
+            } catch (err) {
+                showAlert(passwordAlert, 'An unexpected error occurred', 'danger');
+                console.error('Error:', err);
+            }
+        });
+    </script>
+</body>
+</html>

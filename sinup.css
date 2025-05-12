@@ -1,0 +1,186 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9f9f9;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Mobile Responsiveness Adjustments */
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .signup-form,
+    .logo-side {
+        flex: none;
+        width: 100%;
+        padding: 30px 20px;
+    }
+
+    .signup-form {
+        order: 2;
+        background-color: #ffffff;
+    }
+
+    .logo-side {
+        order: 1;
+        padding: 50px 20px;
+    }
+
+    .signup-form h2 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .logo-side img {
+        width: 50%;
+        max-width: 250px;
+        margin-bottom: 15px;
+    }
+
+    .logo-side h3 {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    .home-link {
+        position: relative;
+        top: 0;
+        left: 0;
+        display: block;
+        text-align: center;
+        margin-bottom: 20px;
+        width: 100%;
+        max-width: 250px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        font-size: 16px;
+        padding: 10px 0;
+    }
+
+    .btn {
+        margin-top: 20px;
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .login-link {
+        margin-top: 10px;
+    }
+}
+
+/* Existing CSS remains the same */
+.signup-form {
+    flex: 1;
+    padding: 50px;
+    background-color: #ffffff;
+}
+
+.signup-form h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+label {
+    display: block;
+    margin-top: 20px;
+    font-weight: 500;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid #000;
+    font-size: 16px;
+    background-color: transparent;
+    margin-top: 5px;
+}
+
+.password-field {
+    position: relative;
+}
+
+.password-field span {
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    cursor: pointer;
+}
+
+.btn {
+    width: 100%;
+    background-color: #8b0000;
+    color: white;
+    padding: 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #a30000;
+}
+
+.login-link {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.login-link a {
+    color: #0077cc;
+    text-decoration: none;
+}
+
+.logo-side {
+    flex: 1;
+    background-color: #8b0000;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-side img {
+    width: 60%;
+    max-width: 300px;
+    margin-bottom: 20px;
+}
+
+.logo-side h3 {
+    font-size: 1.5rem;
+}
+
+.home-link {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    text-decoration: none;
+    font-size: 1rem;
+    color: #0a0000;
+    background-color: #fff;
+    padding: 8px 15px;
+    border-radius: 20px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.home-link:hover {
+    background-color: #800000;
+    color: #fff;
+}

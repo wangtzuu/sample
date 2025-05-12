@@ -1,0 +1,1067 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 280px;
+    background-color: black;
+    color: white;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    margin-bottom: 30px;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f1f1f1;
+    margin-right: 10px;
+}
+
+.logo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f1f1f1;
+    margin-right: 10px;
+}
+
+.logo-text {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: #ddd;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.nav-item:hover, .nav-item.active {
+    background-color: #333;
+}
+
+.nav-icon {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+.admin-profile {
+    margin-top: auto;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #333;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #901C1C;
+    margin-right: 10px;
+    overflow: hidden;
+}
+
+.profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #240505;
+}
+
+.header {
+    background-color: #901C1C;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.search-container {
+    flex: 1;
+    margin: 0 20px;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 15px 10px 40px;
+    border-radius: 20px;
+    border: none;
+    background-color: rgba(17, 11, 11, 0.2);
+    color: white;
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+}
+
+.notification-icon {
+    font-size: 24px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.category-dropdown {
+    position: relative;
+    margin-right: 10px;
+}
+
+.category-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    min-width: 180px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.category-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Dashboard Page Styles */
+.dashboard {
+    padding: 20px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.dashboard-title {
+    font-size: 40px;
+    font-weight: bold;
+    color: rgb(199, 191, 191);
+}
+
+.add-book-btn {
+    padding: 8px 15px;
+    border: 1px solid #000;
+    border-radius: 20px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.book-card {
+    background-color: white;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 230px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.book-cover {
+    width: 120px;
+    height: 160px;
+    margin-bottom: 15px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.book-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.book-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.book-cover.selected {
+    border: 3px solid #333;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+/* Borrowing Page Styles */
+.borrowing-page {
+    padding: 20px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.borrowing-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.borrowing-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.section-box {
+    flex: 1;
+    background-color: #901C1C;
+    border-radius: 5px;
+    padding: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+    color: white;
+}
+
+.section-content {
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: black;
+}
+
+.book-icon {
+    width: 70px;
+    height: 120px;
+    background-color: #000;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calendar-icon {
+    width: 50px;
+    height: 50px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calendar-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.time-input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.input-label {
+    width: 100%;
+    margin-top: 8px;
+    text-align: left;
+    font-size: 14px;
+    color: #555;
+}
+
+.action-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.date-display {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0;
+    text-align: center;
+    border-bottom: 2px solid #901C1C;
+    padding-bottom: 5px;
+}
+
+.penalty-icon {
+    display: flex;
+    position: relative;
+    width: 80px;
+    height: 120px;
+    margin: 10px 0;
+}
+
+.info-text {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px 20px;
+    border-radius: 30px;
+    margin-left: auto;
+}
+
+.user-avatar {
+    width: 30px;
+    height: 30px;
+    background-color: #901C1C;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.book-icon img, .info-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Users Page Styles */
+.users-page {
+    padding: 20px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.user-table th, .user-table td {
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    text-align: left;
+}
+
+.user-table th {
+    background-color: #f5f5f5;
+    color: #333;
+    font-weight: 600;
+}
+
+.user-table tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.status {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.status.active {
+    color: #2e7d32;
+    background-color: #c8e6c9;
+}
+
+.status.inactive {
+    color: #c62828;
+    background-color: #ffcdd2;
+}
+
+/* Books Requested Page Styles */
+.books-requested-page {
+    padding: 20px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.books-requested-header {
+    margin-bottom: 20px;
+}
+
+.books-requested-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.books-table-container {
+    background-color: #901C1C;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.books-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.books-table th, .books-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.books-table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+    color: #333;
+}
+
+.books-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Settings Page Styles */
+.settings-page {
+    padding: 20px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.settings-header {
+    margin-bottom: 20px;
+}
+
+.settings-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.profile-section {
+    background-color: #901C1C;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-content {
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #eee;
+    margin-right: 30px;
+    overflow: hidden;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-details {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.profile-field {
+    flex: 1;
+    min-width: 200px;
+}
+
+.profile-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.profile-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.avatar-container {
+    position: relative;
+}
+
+.photo-upload-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: #333;
+    color: white;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.security-section {
+    background-color: #901C1C;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.security-content {
+    background-color:white;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+}
+
+.password-question {
+    border: 2px solid #000;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.proceed-btn {
+    padding: 10px 20px;
+    background-color: #000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Logout Modal Styles */
+.logout-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.logout-content {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    width: 400px;
+    text-align: center;
+}
+
+.logout-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.logout-message {
+    margin-bottom: 30px;
+    font-size: 16px;
+}
+
+.logout-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.cancel-btn, .confirm-logout-btn {
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    color: #333;
+}
+
+.confirm-logout-btn {
+    background-color: #901C1C;
+    border: none;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    
+    /* Ensure proper sidebar behavior */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -280px;
+        width: 280px;
+        height: 100%;
+        background-color: #222;
+        z-index: 999;
+        transition: left 0.3s ease;
+    }
+    
+    .sidebar.open {
+        left: 0;
+    }
+    
+    /* Better header layout for mobile */
+    .header {
+        flex-wrap: wrap;
+        padding: 10px;
+    }
+    
+    .sidebar-toggle-btn {
+        display: block;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+    
+    .back-btn {
+        margin-left: 5px;
+    }
+    
+    .search-container {
+        flex: 1;
+        margin: 0 5px;
+        min-width: 150px;
+        order: 2;
+    }
+    
+    .notification-icon, .category-dropdown {
+        margin: 5px;
+    }
+    
+    /* Improved book grid for smaller screens */
+    .books-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+    
+    .book-card {
+        height: 200px;
+        padding: 10px;
+    }
+    
+    .book-cover {
+        width: 100px;
+        height: 140px;
+    }
+    
+    /* Better borrowing page layout */
+    .borrowing-section {
+        flex-direction: column;
+    }
+    
+    .section-box {
+        margin-bottom: 15px;
+    }
+    
+    /* Settings page improvements */
+    .profile-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .avatar-container {
+        margin-bottom: 20px;
+    }
+    
+    .profile-details {
+        width: 100%;
+    }
+    
+    /* Smaller logout modal for mobile */
+    .logout-content {
+        width: 90%;
+        max-width: 350px;
+        padding: 20px;
+    }
+    
+    .logout-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .cancel-btn, .confirm-logout-btn {
+        width: 100%;
+    }
+}
+
+/* Fix for initial page load */
+#dashboard, #borrowingPage, #settingsPage {
+    display: none;
+}
+
+/* Back button styles */
+.back-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.back-btn:hover {
+    transform: translateX(-5px);
+}
+
+/* Fix for highlighted search results */
+.book-card.highlight {
+    position: relative;
+    z-index: 5;
+}
+
+/* Make sidebar clickable on desktop too */
+@media (min-width: 769px) {
+    .sidebar-toggle-btn {
+        display: block;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+    
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -280px;
+        width: 280px;
+        height: 100%;
+        background-color: #222;
+        z-index: 999;
+        transition: left 0.3s ease;
+    }
+    
+    .sidebar.open {
+        left: 0;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        transition: margin-left 0.3s ease;
+        width: 100%;
+    }
+    
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 998;
+    }
+    
+    .overlay.active {
+        display: block;
+    }
+}
+
+/* Password change form styling */
+.password-form {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.password-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.cancel-password-btn, .save-password-btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cancel-password-btn {
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    color: #333;
+}
+
+.save-password-btn {
+    background-color: #901C1C;
+    border: none;
+    color: white;
+}
+
+/* Profile photo upload improvements */
+.photo-upload-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: #333;
+    color: white;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.photo-upload-btn:hover {
+    transform: scale(1.1);
+    background-color: #901C1C;
+}
+
+.avatar-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 20px;
+}
+
+/* Improve notification styles */
+.notification-icon {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.notification-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Add profile page animation */
+.profile-section, .security-section {
+    transition: transform 0.3s ease;
+}
+
+.profile-section:hover, .security-section:hover {
+    transform: translateY(-5px);
+}
+
+#dashboardHeader, #otherHeader {
+    display: none; /* Hide both headers by default */
+}
+
+.space-filler {
+    flex: 1;
+}
+
+/* Fix initial page load */
+#dashboard, #borrowingPage, #settingsPage {
+    display: none;
+}
+
+.footer-sections {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px;
+    background-color: #240505;
+    margin-top: 800px;
+    border-radius: 0px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.section-card {
+    width: 30%;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.section-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.section-header {
+    color: #901C1C;
+    font-size: 22px;
+    font-weight: bold;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #901C1C;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.section-content {
+    color: #333;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.section-content p {
+    margin-bottom: 12px;
+}
+
+.section-content strong {
+    color: #901C1C;
+}
+
+.terms-link {
+    color: #901C1C;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.terms-link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 992px) {
+    .footer-sections {
+        flex-direction: column;
+        padding: 20px;
+    }
+    
+    .section-card {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+/* Styling for the book title input */
+#bookTitleInput {
+    font-style: italic;
+    background-color: #f9f9f9;
+    border-color: #901C1C;
+    color: #333;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+/* Add some additional styling for input fields to make them stand out */
+.input-field:read-only {
+    background-color: #f5f5f5;
+    border-left: 3px solid #901C1C;
+}
+
+/* Add a subtle animation when a book is selected */
+@keyframes fadeIn {
+    from { opacity: 0.7; }
+    to { opacity: 1; }
+}
+
+#bookTitleInput, #bookCodeInput {
+    animation: fadeIn 0.5s ease-in-out;
+}

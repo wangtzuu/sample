@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LBR-SYSTEM</title>
+    <link rel="stylesheet" href="user.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="userProfileData.js"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-container">
+            <div class="logo">
+                <img src="logo.png" alt="LBR Logo">
+            </div>
+            <div class="logo-text">LBR-SYSTEM</div>
+        </div>
+        
+        <a href="#" class="nav-item" id="dashboardLink">
+            <div class="nav-icon">🏠</div>
+            DASHBOARD
+        </a>
+        
+        <a href="#" class="nav-item" id="borrowingLink">
+            <div class="nav-icon">📋</div>
+            BORROWING
+        </a>
+        
+        <a href="#" class="nav-item" id="settingsLink">
+            <div class="nav-icon">⚙️</div>
+            SETTINGS
+        </a>
+        
+        <a href="#" class="nav-item" id="logoutLink">
+            <div class="nav-icon">↪️</div>
+            LOG OUT
+        </a>
+        
+        <div class="admin-profile">
+            <div class="profile-pic">
+                <img src="/api/placeholder/40/40" alt="Admin Avatar">
+            </div>
+            <div id="adminRole">User</div>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <!-- Dashboard Header (with search bar) -->
+        <div class="header" id="dashboardHeader">
+            <button class="sidebar-toggle-btn" onclick="toggleSidebar()">☰</button>
+            <div class="overlay" onclick="toggleSidebar()"></div>
+            <button class="back-btn">←</button>
+            
+            <div class="search-container">
+                <div class="search-icon">🔍</div>
+                <input type="text" class="search-input" placeholder="Search & Browse Books">
+            </div>
+            
+            
+        </div>
+        
+        <!-- Other Pages Header (without search bar) -->
+        <div class="header" id="otherHeader">
+            <button class="sidebar-toggle-btn" onclick="toggleSidebar()">☰</button>
+            <div class="overlay" onclick="toggleSidebar()"></div>
+            <button class="back-btn">←</button>
+            
+            <div class="space-filler"></div>
+            
+            
+        </div>
+        
+        <!-- Dashboard Page -->
+        <div class="dashboard" id="dashboard">
+            <div class="dashboard-header">
+                <h2 class="dashboard-title">LISTED BOOKS</h2>
+                <button class="add-book-btn">+Add Book</button>
+            </div>
+            
+            <div class="books-grid">
+                <!-- Book 1 -->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="MATH001">
+                        <img src="book1.png" alt="Book 1" data-book-src="book1.png">
+                    </div>
+                    <p class="book-title">DIGITAL ARTS-3D MODELING</p>
+                </div>
+                
+                <!-- Book 2 -->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="SCI002">
+                        <img src="book2.png" alt="Book 2" data-book-src="book2.png">
+                    </div>
+                    <p class="book-title">SCIENCE LINKS (CHEMISTRY)</p>
+                </div>
+                
+                <!-- Book 3 -->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="ENG003">
+                        <img src="book3.png" alt="Book 3" data-book-src="book3.png">
+                    </div>
+                    <p class="book-title">ESSENTIAL ENGLISH</p>
+                </div>
+
+                <!-- Book 4 -->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="FIL004">
+                        <img src="book4.png" alt="Book 4" data-book-src="book4.png">
+                    </div>
+                    <p class="book-title">BASIC PROGRAMMING</p>
+                </div>
+
+                <!-- Book 5-->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="SOC005">
+                        <img src="book5.png" alt="Book 5" data-book-src="book5.png">
+                    </div>
+                    <p class="book-title">CONNECTING DEVICES/NETWORKING</p>
+                </div>
+
+                <!--book 6-->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="COMP006">
+                        <img src="book6.png" alt="Book 6" data-book-src="book6.png">
+                    </div>
+                    <p class="book-title">UNIVERSITY PHYSICS vol 1</p>
+                </div>
+                
+                <!-- Book 7 -->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="COMP007">
+                        <img src="book7.png" alt="Book 7" data-book-src="book7.png">
+                    </div>
+                    <p class="book-title">ALGEBRA (BEGINNING AND INTERMEDIATE)</p>
+                </div>
+
+                <!-- Book 8-->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="COMP008">
+                        <img src="book8.png" alt="Book 8" data-book-src="book8.png">
+                    </div>
+                    <p class="book-title">GENERAL PHYSICS</p>
+                </div>
+
+                <!-- Book 9-->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="COMP009">
+                        <img src="book9.png" alt="Book 9" data-book-src="book9.png">
+                    </div>
+                    <p class="book-title">DATABASE MANAGEMENT</p>
+                </div>
+
+                <!-- Book 10 -->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="COMP010">
+                        <img src="book10.png" alt="Book 10" data-book-src="book10.png">
+                    </div>
+                    <p class="book-title">LANGUAGE IN LITERATURE</p>
+                </div>
+                
+                <!-- Book 11 -->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="COMP011">
+                        <img src="book11.png" alt="Book 11" data-book-src="book11.png">
+                    </div>
+                    <p class="book-title">NEXT CENTURY MATHEMATICS</p>
+                </div>
+                
+                <!-- Book 12 -->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="COMP012">
+                        <img src="book12.png" alt="Book 12" data-book-src="book12.png">
+                    </div>
+                    <p class="book-title">NOLI ME TANGERE</p>
+                </div>
+
+            </div>
+            <div class="footer-sections">
+                <div class="section-card">
+                    <div class="section-header">ABOUT</div>
+                    <div class="section-content">
+                        <p>Welcome to our E-Library System – your digital gateway to endless knowledge and learning. Built with ease of use and accessibility in mind, our platform delivers a seamless experience for students.</p>
+                        <p>Explore a diverse collection of e-books, journals, and academic resources anytime, anywhere. Whether you're borrowing a book, searching for materials, or organizing your reading list, our intuitive interface makes everything simple and efficient.</p>
+                            <p>Discover a smarter way to read, learn, and grow – all in one place.</p>
+                    </div>
+                </div>
+                
+                <div class="section-card">
+                    <div class="section-header">CONTACT</div>
+                    <div class="section-content">
+                        <p>For assistance or inquiries, please contact us:</p>
+                        <p><strong>Email:</strong> support@lbr-system.com</p>
+                        <p><strong>Phone:</strong> +1-123-456-7890</p>
+                        <p><strong>Hours:</strong> Monday-Friday, 9:00 AM - 5:00 PM</p>
+                    </div>
+                </div>
+                
+                <div class="section-card">
+                    <div class="section-header">PRIVACY/TERMS</div>
+                    <div class="section-content">
+                        <p>By using this system, you agree to our privacy policy and terms of use. We respect your privacy and handle all data in accordance with applicable laws.</p>
+                        <p>For full details, please review our complete <a href="#" class="terms-link">Privacy Policy & Terms of Service</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+        
+        <!-- Borrowing Page -->
+<div class="borrowing-page" id="borrowingPage">
+    <div class="dashboard-header">
+        <h2 class="dashboard-title">Borrowing</h2>
+        <div class="user-profile">
+            <div class="user-avatar"></div>
+            <span>User</span>
+        </div>
+    </div>
+    
+    <div class="borrowing-grid">
+        <div class="borrowing-section">
+            <div class="section-box">
+                <h3 class="section-title">Book Checkout</h3>
+                <div class="section-content">
+                    <div class="book-icon" id="checkoutBookIcon">
+                        <img src=".png" alt="Book Icon" id="checkoutBookImage">
+                    </div>
+                    <div class="calendar-icon">
+                       
+                    </div>
+                    <div class="date-display">Due Date</div>
+                    <input type="text" class="input-field" id="bookCodeInput" placeholder="Book code" pattern="[A-Za-z0-9-]+" readonly>
+                    <!-- Book title will be inserted here by JavaScript -->
+                    <input type="text" class="input-field" placeholder="Student Username" pattern="[0-9]+" readonly>
+                    <label class="input-label">Checkout Date:</label>
+                    <input type="date" class="time-input" id="checkoutTime" required>
+                    <button class="action-btn">Borrow</button>
+                </div>
+            </div>
+            
+            <div class="section-box">
+                <h3 class="section-title">Return</h3>
+                <div class="section-content">
+                    <div class="book-icon">
+                        <img src="" alt="Book Icon"> 
+                    </div>
+                    <input type="text" class="input-field" placeholder="Book code" pattern="[A-Za-z0-9-]+" required>
+                    <input type="text" class="input-field" placeholder="Student Username" pattern="[0-9]+" readonly>
+                    <label class="input-label">Return Date:</label>
+                    <input type="date" class="time-input" id="checkoutTime" required>
+                    <button class="action-btn">Return</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="borrowing-section">
+            <div class="section-box">
+                <h3 class="section-title">Overdue Fines</h3>
+                <div class="section-content">
+                    <div class="penalty-icon">
+                        <img src="overdue fines.png" alt="Book with Calendar">
+                    </div>
+                    <div class="info-text">penalties apply if books are returned late</div>
+                </div>
+            </div>
+            
+            <div class="section-box">
+                <h3 class="section-title">Lost/Damaged Books</h3>
+                <div class="section-content">
+                    
+                    <div class="info-icon">
+                        <img src="lost.png" alt="Question Mark">
+                    </div>
+                    <div class="info-text">Users must report and compensate for lost or damaged items</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        
+        <!-- Settings Page -->
+        <div class="settings-page" id="settingsPage" style="display: none;">
+            <div class="settings-header">
+                <h2 class="settings-title">Settings</h2>
+            </div>
+            
+            <div class="profile-section">
+                <h3 class="section-title">Profile</h3>
+                <div class="profile-content">
+                    <div class="avatar-container">
+                        <div class="profile-avatar">
+                            <img src="admin-avatar.png" alt="Profile Avatar">
+                        </div>
+                        <div class="photo-upload-btn" title="Upload profile photo">+</div>
+                    </div>
+                    
+                    <div class="profile-details">
+                        <div class="profile-field">
+                            <label class="profile-label">First Name</label>
+                            <input type="text" class="profile-input" id="firstName" value="" readonly>
+                        </div>
+                        
+                        <div class="profile-field">
+                            <label class="profile-label">Last Name</label>
+                            <input type="text" class="profile-input" id="lastName" value="" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+        
+        
+    </div>
+    <!-- Logout Modal -->
+    <div class="logout-modal" id="logoutModal">
+        <div class="logout-content">
+            <h2 class="logout-title">Log Out</h2>
+            <p class="logout-message">Are you sure you want to log out of your account?</p>
+            <div class="logout-buttons">
+                <button class="cancel-btn" id="cancelLogout">Cancel</button>
+                <button class="confirm-logout-btn" id="confirmLogout">Log Out</button>
+            </div>
+        </div>
+    </div>
+    <script src="user.js"></script>
+    <script src="book-management.js"></script>
+</body>
+</html>

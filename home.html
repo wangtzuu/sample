@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASNH eLibrary</title>
+  <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <header>
+      <div class="logo-container">
+        <img src="logo.png" alt="ASNH Logo" class="logo">
+        <h1>ASNH–ELIBRARY</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#" id="home-link" class="active">Home</a></li>
+          <li><a href="#" id="recommended-link">Recommended Books</a></li>
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+        <a href="signup.html" class="btn-link">Sign up</a>
+        <a href="index.html" class="btn-link">Sign in</a>
+      </div>
+    </header>
+  
+    <main>
+      <!-- Home Page -->
+      <div id="home-page" class="page">
+        <div class="banner">
+          <img src="deped.jpg" alt="MATATAG Banner">
+        </div>
+      </div>
+  
+      <!-- Recommended Books Page -->
+      <div id="recommended-page" class="page">
+        <!-- Search Bar -->
+        
+  
+        <!-- Recommended Books Section -->
+        <div class="recommended-section">
+          <h1 class="section-title">Available Books</h1>
+          <div class="books-grid">
+            <!-- Book 1 -->
+            <div class="book-card">
+              <div class="book-cover">
+                <img src="book1.png" alt="Book 1">
+              </div>
+              <p class="book-title">DIGITAL ARTS-3D MODELING</p>
+            </div>
+            
+            <!-- Book 2 -->
+            <div class="book-card">
+              <div class="book-cover">
+                <img src="book2.png" alt="Book 2">
+              </div>
+              <p class="book-title">SCIENCE LINKS (CHEMISTRY)</p>
+            </div>
+            
+            <!-- Book 3 -->
+            <div class="book-card">
+              <div class="book-cover">
+                <img src="book3.png" alt="Book 3">
+              </div>
+              <p class="book-title">ESSENTIAL ENGLISH</p>
+            </div>
+            
+            <!-- Book 4 -->
+            <div class="book-card">
+              <div class="book-cover">
+                <img src="book4.png" alt="Book 4">
+              </div>
+              <p class="book-title">BASIC PROGRAMMING</p>
+            </div>
+            
+            <!-- Book 5 -->
+            <div class="book-card">
+              <div class="book-cover">
+                <img src="book5.png" alt="Book 5">
+              </div>
+              <p class="book-title">CONNECTING DEVICES/NETWORKING</p>
+            </div>
+            
+            <!-- Book 6 -->
+            <div class="book-card">
+              <div class="book-cover">
+                <img src="book6.png" alt="Book 6">
+              </div>
+              <p class="book-title">UNIVERSITY PHYSICS vol 1</p>
+            </div>
+
+            <!-- Book 7 -->
+            <div class="book-card">
+                <div class="book-cover">
+                  <img src="book7.png" alt="Book 7">
+                </div>
+                <p class="book-title">ALGEBRA (BEGINNING AND INTERMEDIATE)</p>
+              </div>
+
+              <!-- Book 8 -->
+            <div class="book-card">
+                <div class="book-cover">
+                  <img src="book8.png" alt="Book 8">
+                </div>
+                <p class="book-title">GENERAL PHYSICS</p>
+              </div>
+
+              <!-- Book 9 -->
+            <div class="book-card">
+                <div class="book-cover">
+                  <img src="book9.png" alt="Book 9">
+                </div>
+                <p class="book-title">DATABASE MANAGEMENT</p>
+              </div>
+
+              <!-- Book 10 -->
+            <div class="book-card">
+                <div class="book-cover">
+                  <img src="book10.png" alt="Book 10">
+                </div>
+                <p class="book-title">LANGUAGE IN LITERATURE</p>
+              </div>
+
+              <!-- Book 11 -->
+            <div class="book-card">
+                <div class="book-cover">
+                  <img src="book11.png" alt="Book 11">
+                </div>
+                <p class="book-title">NEXT CENTURY MATHEMATICS</p>
+              </div>
+
+              <!-- Book 12 -->
+            <div class="book-card">
+                <div class="book-cover">
+                  <img src="book12.png" alt="Book 12">
+                </div>
+                <p class="book-title">NOLI ME TANGERE</p>
+              </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </main>
+  
+    <script>
+      // JavaScript for page transitions
+      document.addEventListener('DOMContentLoaded', function() {
+        const homeLink = document.getElementById('home-link');
+        const recommendedLink = document.getElementById('recommended-link');
+        const homePage = document.getElementById('home-page');
+        const recommendedPage = document.getElementById('recommended-page');
+        
+        // Set initial heights for proper page display
+        setPageHeights();
+        window.addEventListener('resize', setPageHeights);
+        
+        function setPageHeights() {
+          // Reset the heights
+          homePage.style.height = 'auto';
+          recommendedPage.style.height = 'auto';
+          
+          // Set the main container height to the height of the visible page
+          const homeHeight = homePage.offsetHeight;
+          const recommendedHeight = recommendedPage.offsetHeight;
+          
+          document.querySelector('main').style.height = 
+            (homeLink.classList.contains('active') ? homeHeight : recommendedHeight) + 'px';
+        }
+        
+        homeLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          if (homeLink.classList.contains('active')) return;
+          
+          // Update active class on navigation
+          recommendedLink.classList.remove('active');
+          homeLink.classList.add('active');
+          
+          // Slide the pages
+          recommendedPage.classList.remove('slide-center');
+          recommendedPage.classList.add('slide-right');
+          homePage.classList.remove('slide-left');
+          homePage.classList.add('slide-center');
+          
+          // Update the main container height
+          setTimeout(setPageHeights, 50);
+        });
+        
+        recommendedLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          if (recommendedLink.classList.contains('active')) return;
+          
+          // Update active class on navigation
+          homeLink.classList.remove('active');
+          recommendedLink.classList.add('active');
+          
+          // Slide the pages
+          homePage.classList.remove('slide-center');
+          homePage.classList.add('slide-left');
+          recommendedPage.classList.remove('slide-right');
+          recommendedPage.classList.add('slide-center');
+          
+          // Update the main container height
+          setTimeout(setPageHeights, 50);
+        });
+      });
+    </script>
+  </body>
+</html>

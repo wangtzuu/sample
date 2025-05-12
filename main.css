@@ -1,0 +1,243 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+}
+
+/* Mobile Responsiveness Adjustments */
+@media screen and (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 10px 0;
+    }
+
+    .logo-container {
+        margin-bottom: 0;
+        padding: 0 15px;
+        flex-shrink: 0;
+    }
+
+    .nav-container {
+        display: flex;
+        flex-grow: 1;
+        overflow-x: auto;
+        padding: 0 10px;
+    }
+
+    .nav-item {
+        padding: 10px 15px;
+        flex-shrink: 0;
+    }
+
+    .admin-profile {
+        display: none;
+    }
+
+    .main-content {
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    .header {
+        flex-wrap: wrap;
+        padding: 15px 10px;
+    }
+
+    .search-container {
+        order: 3;
+        width: 100%;
+        margin: 10px;
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    .category-dropdown {
+        margin-right: 10px;
+    }
+
+    .dashboard, 
+    .borrowing-page, 
+    .users-page, 
+    .books-requested-page, 
+    .settings-page {
+        padding: 15px 10px;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .dashboard-title {
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .books-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+
+    .book-card {
+        height: 200px;
+    }
+
+    .book-cover {
+        width: 100px;
+        height: 130px;
+    }
+
+    .borrowing-section {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .section-box {
+        width: 100%;
+    }
+
+    .table-container {
+        overflow-x: scroll;
+    }
+
+    .user-table, .books-table {
+        min-width: 600px;
+    }
+
+    .profile-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-avatar {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .profile-details {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .profile-field {
+        min-width: 100%;
+    }
+
+    .logout-modal .logout-content {
+        width: 90%;
+        max-width: 400px;
+        padding: 20px;
+    }
+
+    .logout-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .cancel-btn, .confirm-logout-btn {
+        width: 100%;
+    }
+}
+
+/* Rest of the existing CSS remains the same */
+body {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 280px;
+    background-color: #222;
+    color: white;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    margin-bottom: 30px;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f1f1f1;
+    margin-right: 10px;
+}
+
+.logo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f1f1f1;
+    margin-right: 10px;
+}
+
+.logo-text {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: #ddd;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.nav-item:hover, .nav-item.active {
+    background-color: #333;
+}
+
+.nav-icon {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+.admin-profile {
+    margin-top: auto;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #333;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #901C1C;
+    margin-right: 10px;
+    overflow: hidden;
+}
+
+.profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* The rest of the CSS remains unchanged */
+/* ... (rest of the original CSS) ... */

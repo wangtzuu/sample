@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LBR-SYSTEM</title>
+    <!-- Import Supabase correctly -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+    // Don't initialize here - we'll do it properly in the main script
+    const supabaseClient = supabase;
+    </script>
+    <link rel="stylesheet" href="newmain.css" />
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-container">
+            <div class="logo">
+                <img src="logo.png" alt="LBR Logo">
+            </div>
+            <div class="logo-text">LBR-SYSTEM</div>
+        </div>
+        
+        <a href="#" class="nav-item" id="dashboardLink">
+            <div class="nav-icon">🏠</div>
+            DASHBOARD
+        </a>
+        
+        <a href="#" class="nav-item" id="usersLink">
+            <div class="nav-icon">👥</div>
+            USERS
+        </a>
+        
+        <a href="#" class="nav-item" id="booksRequestedLink">
+            <div class="nav-icon">📚</div>
+            BOOKS REQUESTED
+        </a>
+        
+        <a href="#" class="nav-item" id="logoutLink">
+            <div class="nav-icon">↪️</div>
+            LOG OUT
+        </a>
+        
+        <div class="admin-profile">
+            <div class="profile-pic">
+                <img src="/api/placeholder/40/40" alt="Admin Avatar">
+            </div>
+            <div id="adminRole">Admin</div>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <!-- Dashboard Page -->
+        <div class="dashboard" id="dashboard">
+            <h2 class="dashboard-title">Admin Dashboard</h2>
+            
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Number of Users</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Number of Books</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">📋</div>
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Number of Requested books</div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <h3 class="chart-title">Library Statistics</h3>
+                <div class="chart">
+                    <div class="bar-group">
+                        <div class="bar-container">
+                            <div class="bar" style="height: 60px;"></div>
+                            <div class="bar" style="height: 20px; background-color: #C75B39;"></div>
+                            <div class="bar" style="height: 180px; background-color: #3A3982;"></div>
+                            <div class="bar-label">Item 1</div>
+                        </div>
+                        
+                        <div class="bar-container">
+                            <div class="bar" style="height: 100px;"></div>
+                            <div class="bar" style="height: 100px; background-color: #C75B39;"></div>
+                            <div class="bar" style="height: 100px; background-color: #3A3982;"></div>
+                            <div class="bar-label">Item 2</div>
+                        </div>
+                        
+                        <div class="bar-container">
+                            <div class="bar" style="height: 120px;"></div>
+                            <div class="bar" style="height: 90px; background-color: #C75B39;"></div>
+                            <div class="bar" style="height: 50px; background-color: #3A3982;"></div>
+                            <div class="bar-label">Item 3</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #8B0000;"></div>
+                        <div class="legend-text">Number of Users</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #C75B39;"></div>
+                        <div class="legend-text">Number of Books</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #3A3982;"></div>
+                        <div class="legend-text">Number of Requested books</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Users Page -->
+        <div class="users-page" id="usersPage" style="display: none;">
+            <div class="dashboard-header">
+                <h2 class="dashboard-title">Users</h2>
+            </div>
+            
+            <div class="table-container">
+                <table class="user-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody id="userTableBody">
+                        <tr>
+                            <td colspan="6">Loading users...</td>
+                        </tr>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Books Requested Page -->
+        <div class="books-requested-page" id="booksRequestedPage" style="display: none;">
+            <div class="books-requested-header">
+                <h2 class="dashboard-title">Books Requested</h2>
+            </div>
+            
+            <div class="books-table-container">
+                <table class="books-table">
+                    <thead>
+                        <tr>
+                            <th>Book code</th>
+                            <th>Book name</th>
+                            <th>Username</th>
+                            <th>Full Name</th>
+                            <th>Date</th>
+                            <th>Department</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>123456789</td>
+                            <td>Data Structure</td>
+                            <td>dave</td>
+                            <td>John Dave Meria</td>
+                            <td>05/12/2025</td>
+                            <td>HUMMS</td>
+                        </tr>
+                        <tr>
+                            <td>123456789</td>
+                            <td>Data Structure</td>
+                            <td>dave</td>
+                            <td>John Dave Meria</td>
+                            <td>05/12/2025</td>
+                            <td>HUMMS</td>
+                        </tr>
+                        <tr>
+                            <td>123456789</td>
+                            <td>Data Structure</td>
+                            <td>dave</td>
+                            <td>John Dave Meria</td>
+                            <td>05/12/2025</td>
+                            <td>HUMMS</td>
+                        </tr>
+                        <tr>
+                            <td>987654321</td>
+                            <td>Advanced Programming</td>
+                            <td>dave</td>
+                            <td>John Dave Meria</td>
+                            <td>05/12/2025</td>
+                            <td>IT</td>
+                        </tr>
+                        <tr>
+                            <td>456789123</td>
+                            <td>Database Management</td>
+                            <td>dave</td>
+                            <td>John Dave Meria</td>
+                            <td>05/12/2025</td>
+                            <td>IT</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        
+        
+    </div>
+    <!-- Logout Modal -->
+        <div class="logout-modal" id="logoutModal">
+            <div class="logout-content">
+                <h2 class="logout-title">Log Out</h2>
+                <p class="logout-message">Are you sure you want to log out of your account?</p>
+                <div class="logout-buttons">
+                    <button class="cancel-btn" id="cancelLogout">Cancel</button>
+                    <button class="confirm-logout-btn" id="confirmLogout">Log Out</button>
+                </div>
+            </div>
+        </div>
+    <script>
+        
+       // Correct Supabase initialization
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Supabase properly
+    const supabaseUrl = 'https://xvxzvzzrgbsfdialxntu.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh2eHp2enpyZ2JzZmRpYWx4bnR1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY2MDQ4ODEsImV4cCI6MjA2MjE4MDg4MX0.s_07EucARbv2GJKMo3HKatiodaqo9WNJO-k1vLkog5E';
+    
+    // Create the client correctly
+    const supabase = supabaseClient.createClient(supabaseUrl, supabaseKey);
+    
+    // Get all page elements
+    const dashboard = document.getElementById('dashboard');
+    const usersPage = document.getElementById('usersPage');
+    const booksRequestedPage = document.getElementById('booksRequestedPage');
+    
+    // Get all navigation links
+    const dashboardLink = document.getElementById('dashboardLink');
+    const usersLink = document.getElementById('usersLink');
+    const booksRequestedLink = document.getElementById('booksRequestedLink');
+    const logoutLink = document.getElementById('logoutLink');
+    
+    // Get logout modal elements
+    const logoutModal = document.getElementById('logoutModal');
+    const cancelLogout = document.getElementById('cancelLogout');
+    const confirmLogout = document.getElementById('confirmLogout');
+    
+    // Function to hide all pages
+    function hideAllPages() {
+        dashboard.style.display = 'none';
+        usersPage.style.display = 'none';
+        booksRequestedPage.style.display = 'none';
+    }
+    
+    // Function to update active link
+    function updateActiveLink(activeLink) {
+        // Remove active class from all nav items
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        // Add active class to clicked link
+        activeLink.classList.add('active');
+    }
+    
+    // Dashboard navigation
+    dashboardLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        hideAllPages();
+        dashboard.style.display = 'block';
+        updateActiveLink(dashboardLink);
+    });
+    
+    // Users navigation - load users when clicked
+    usersLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        hideAllPages();
+        usersPage.style.display = 'block';
+        updateActiveLink(usersLink);
+        
+        // Load users when the page is displayed
+        loadUsers(supabase);
+    });
+    
+    // Books Requested navigation
+    booksRequestedLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        hideAllPages();
+        booksRequestedPage.style.display = 'block';
+        updateActiveLink(booksRequestedLink);
+    });
+    
+    // Logout button click
+    logoutLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        logoutModal.style.display = 'flex';
+    });
+    
+    // Cancel logout
+    cancelLogout.addEventListener('click', function() {
+        logoutModal.style.display = 'none';
+    });
+    
+    // Confirm logout
+    confirmLogout.addEventListener('click', function() {
+        // Log out from Supabase
+        supabase.auth.signOut().then(() => {
+            window.location.href = 'index.html'; // Redirect to login page
+        }).catch(error => {
+            console.error('Error signing out:', error);
+            alert('Error signing out. Please try again.');
+        });
+    });
+    
+    // Close modal if clicked outside of content
+    logoutModal.addEventListener('click', function(e) {
+        if (e.target === logoutModal) {
+            logoutModal.style.display = 'none';
+        }
+    });
+    
+    // Set dashboard as active by default
+    dashboardLink.classList.add('active');
+
+    // Update the dashboard stats with real data
+    updateDashboardStats(supabase);
+});
+
+// Function to load users from Supabase
+async function loadUsers(supabase) {
+    try {
+        // Show loading state
+        const userTableBody = document.getElementById('userTableBody');
+        userTableBody.innerHTML = '<tr><td colspan="6">Loading users...</td></tr>';
+        
+        // Fetch users from Supabase
+        const { data: users, error } = await supabase
+            .from('users')
+            .select('*')
+            .order('id', { ascending: true });
+            
+        if (error) {
+            console.error('Error fetching users:', error);
+            userTableBody.innerHTML = '<tr><td colspan="6">Error loading users: ' + error.message + '</td></tr>';
+            return;
+        }
+        
+        // Clear the table body
+        userTableBody.innerHTML = '';
+        
+        // Check if we have users
+        if (!users || users.length === 0) {
+            userTableBody.innerHTML = '<tr><td colspan="6">No users found.</td></tr>';
+            return;
+        }
+        
+        // Update the stats counter
+        const usersCountElement = document.querySelectorAll('.stat-value')[0];
+        if (usersCountElement) {
+            usersCountElement.textContent = users.length;
+        }
+        
+        // Populate the table with user data
+        users.forEach(user => {
+            const row = document.createElement('tr');
+            
+            // Create full name by combining first and last name
+            const fullName = `${user.first_name || ''} ${user.last_name || ''}`.trim() || 'N/A';
+            
+            // Determine if user is active
+            const isActive = user.is_active !== false; // Default to active if not specified
+            
+            // Format role
+            const role = user.is_admin ? 'Admin' : 'User';
+            
+            row.innerHTML = `
+                <td>${user.id || 'N/A'}</td>
+                <td>${user.username || 'N/A'}</td>
+                <td>${fullName}</td>
+                <td>${user.email || 'N/A'}</td>
+                <td>${role}</td>
+                <td><span class="status ${isActive ? 'active' : 'inactive'}">${isActive ? 'Active' : 'Inactive'}</span></td>
+            `;
+            
+            userTableBody.appendChild(row);
+        });
+        
+    } catch (err) {
+        console.error('Unexpected error loading users:', err);
+        document.getElementById('userTableBody').innerHTML = 
+            '<tr><td colspan="6">An unexpected error occurred: ' + err.message + '</td></tr>';
+    }
+}
+
+// Function to update dashboard statistics
+async function updateDashboardStats(supabase) {
+    try {
+        // Get statistics elements
+        const userCountElement = document.querySelectorAll('.stat-value')[0];
+        const bookCountElement = document.querySelectorAll('.stat-value')[1];
+        const requestedCountElement = document.querySelectorAll('.stat-value')[2];
+        
+        // Fetch user count
+        const { data: users, error: userError } = await supabase
+            .from('users')
+            .select('id', { count: 'exact', head: true });
+            
+        if (!userError && users !== null) {
+            userCountElement.textContent = users.length;
+        } else {
+            console.error('Error fetching user count:', userError);
+            userCountElement.textContent = '0';
+        }
+        
+        // For books and requested books, you would add similar queries to your actual tables
+        // This is a placeholder - replace with your actual table names and queries
+        
+        // Uncomment and modify these when you have the actual tables
+        /*
+        // Fetch book count
+        const { data: books, error: bookError } = await supabase
+            .from('books')
+            .select('id', { count: 'exact', head: true });
+            
+        if (!bookError && books !== null) {
+            bookCountElement.textContent = books.length; 
+        } else {
+            console.error('Error fetching book count:', bookError);
+            bookCountElement.textContent = '0';
+        }
+        
+        // Fetch requested books count
+        const { data: requests, error: requestError } = await supabase
+            .from('book_requests')
+            .select('id', { count: 'exact', head: true });
+            
+        if (!requestError && requests !== null) {
+            requestedCountElement.textContent = requests.length;
+        } else {
+            console.error('Error fetching requested books count:', requestError);
+            requestedCountElement.textContent = '0';
+        }
+        */
+    } catch (err) {
+        console.error('Error updating dashboard stats:', err);
+    }
+}
+    </script>
+    <script src="admin-books.js"></script>
+</body>
+</html>
